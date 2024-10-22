@@ -1,14 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
 
-func test_colors() {
-	for i := 0; i < 256; i++ {
-		fmt.Printf("\033[48;2;%d;0;0m Haiiiii", i)
-	}
-}
+	"github.com/gunzette/fetchette/termcolor"
+)
 
 func main() {
-	test_colors()
-	fmt.Println("")
+	fmt.Println(termcolor.BgColor("   ", &[3]int{20, 255, 2}))
+	fmt.Println(termcolor.FullColor("Haiii", &[3]int{0, 255, 0}, &[3]int{255, 0, 0}))
 }
