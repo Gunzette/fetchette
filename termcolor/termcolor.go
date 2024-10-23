@@ -22,3 +22,13 @@ func FullColor(str string, fg *[3]int, bg *[3]int) string {
 	)
 	return result
 }
+
+func Bold(str string) string {
+	result := fmt.Sprintf("\033[1m%s", str)
+	return result
+}
+
+func Light(str string) string {
+	result := fmt.Sprintf("\033[2m%s", str)
+	return result
+}
