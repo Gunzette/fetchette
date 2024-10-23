@@ -4,6 +4,8 @@ import "fmt"
 
 // Read https://en.wikipedia.org/wiki/ANSI_escape_code to know how these crazy looking character combinations work
 
+const ResetAttrib string = "\033[m"
+
 func BgColor(str string, col *[3]int) string {
 	result := fmt.Sprintf("\033[48;2;%d;%d;%dm%s", col[0], col[1], col[2], str)
 	return result
