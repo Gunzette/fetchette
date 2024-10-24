@@ -11,7 +11,7 @@ This will (hopefully) be a neofetch-like program in go if it gets finished
 - [ ] Make more, good ASCII art
 - [ ] Stop with the `log.Fatal`s and actually create good error handling
 ### Maybe Todo
-- [ ] Get OS info on systems other than windows
+- [ ] Get OS info on systems other than linux
 
 ## External Dependencies
 - `lsb_release`
