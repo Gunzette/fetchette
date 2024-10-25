@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"os"
+	"path"
 	"strconv"
 	"strings"
 )
@@ -46,7 +47,12 @@ type JSONLogoStruct struct {
 }
 
 func generateLogoDataFromJSONInfo(filename string) (string, [][3]int) {
-	content, err := os.ReadFile("./ascii/" + filename)
+	exPath, err := os.Executable()
+	if err != nil {
+		log.Fatal("Error while getting executable path: ", err)
+	}
+
+	content, err := os.ReadFile(path.Dir(exPath) + "/ascii/" + filename)
 	if err != nil {
 		log.Fatal("Error while opening file: ", err)
 	}
@@ -63,7 +69,12 @@ func generateLogoDataFromJSONInfo(filename string) (string, [][3]int) {
 func GetColoredLogoString(filename string) string {
 	file, colors := generateLogoDataFromJSONInfo(filename)
 
-	logoString, err := os.ReadFile("./ascii/" + file)
+	exPath, err := os.Executable()
+	if err != nil {
+		log.Fatal("Error while getting executable path: ", err)
+	}
+
+	logoString, err := os.ReadFile(path.Dir(exPath) + "/ascii/" + file)
 	if err != nil {
 		log.Fatal("Error while opening file: ", err)
 	}
