@@ -2,5 +2,7 @@
 	"file": "arch.txt",
 	"colors": [
 		[23, 147, 209]
-	]
+	],
+	"width": 37,
+	"height": 19
 }
