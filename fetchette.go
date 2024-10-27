@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"strings"
+	"unicode/utf8"
 
 	"github.com/gunzette/fetchette/modules"
 	"github.com/gunzette/fetchette/termcolor"
@@ -38,5 +39,7 @@ func main() {
 		log.Fatal("Not enough arguments")
 	}
 
-	displayFetch(os.Args[1]+"Colors.json", []string{modules.GetUserAtHost(), modules.GetOS(), modules.GetKernel()})
+	userAtHost := modules.GetUserAtHost()
+
+	displayFetch(os.Args[1]+"Colors.json", []string{userAtHost, strings.Repeat("-", utf8.RuneCountInString(userAtHost)), modules.GetOS(), modules.GetKernel()})
 }
