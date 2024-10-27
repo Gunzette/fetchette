@@ -10,14 +10,13 @@ import (
 	"github.com/gunzette/fetchette/termcolor"
 )
 
-func main() {
-	// Check arguments
-	if len(os.Args) == 1 {
-		log.Fatal("Not enough arguments")
-	}
+const LOGOGAP int = 2
 
+func displayFetch(colorsFile string, moduleOutputs []string) {
 	// Get logo string
-	logo := termcolor.GetColoredLogoString(os.Args[1] + "Colors.json")
+	logo := termcolor.GetColoredLogoString(colorsFile)
+
+	outputLen := len(moduleOutputs)
 
 	// Add to each line of logo
 	for i, line := range strings.Split(logo, "\n") {
@@ -25,11 +24,19 @@ func main() {
 			continue
 		}
 
-		fmt.Println(line, "a", i)
+		if i < outputLen {
+			fmt.Println(line, strings.Repeat(" ", LOGOGAP), moduleOutputs[i])
+		} else {
+			fmt.Println(line)
+		}
+	}
+}
+
+func main() {
+	// Check arguments
+	if len(os.Args) == 1 {
+		log.Fatal("Not enough arguments")
 	}
 
-	// test modules
-	fmt.Println(modules.GetOS())
-	fmt.Println(modules.GetUserAtHost())
-	fmt.Println(modules.GetKernel())
+	displayFetch(os.Args[1]+"Colors.json", []string{modules.GetUserAtHost(), modules.GetOS(), modules.GetKernel()})
 }
