@@ -1,6 +1,9 @@
 # Fetchette
 This will (hopefully) be a neofetch-like program in go if it gets finished
 
+## Current state of the program:
+![image](screenshots/earlyArch.png)
+
 ## Todos
 - [X] Use terminal colors in go
 - [X] Create go module to use display colors more easily
