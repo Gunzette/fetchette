@@ -25,5 +25,5 @@ func getUsernameLinux() string {
 }
 
 func GetUserAtHost() string {
-	return getUsernameLinux() + "@" + getHostnameLinux()
+	return "{00}" + getUsernameLinux() + "{02}@{00}" + getHostnameLinux() + "{-1}"
 }

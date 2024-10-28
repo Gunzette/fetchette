@@ -16,5 +16,5 @@ func getOSLinux() string {
 }
 
 func GetOS() string {
-	return "OS: " + getOSLinux()
+	return "{01}OS{02}: " + getOSLinux() + "{-1}"
 }

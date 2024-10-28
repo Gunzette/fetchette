@@ -16,5 +16,5 @@ func getKernelLinux() string {
 }
 
 func GetKernel() string {
-	return "Kernel: " + getKernelLinux()
+	return "{01}Kernel{02}: " + getKernelLinux() + "{-1}"
 }
