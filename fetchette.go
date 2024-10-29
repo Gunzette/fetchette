@@ -38,9 +38,12 @@ func getTextColors(filename string) [3][3]int {
 	return payload.TextColors
 }
 
-func displayFetch(colorsFile string, moduleOutputs []string) {
+func displayFetch(colorsFile string, moduleOutputs []string) error {
 	// Get logo string
-	logo := termcolor.GetColoredLogoString(colorsFile)
+	logo, err := termcolor.GetColoredLogoString(colorsFile)
+	if err != nil {
+		return err
+	}
 
 	outputLen := len(moduleOutputs)
 
@@ -53,15 +56,21 @@ func displayFetch(colorsFile string, moduleOutputs []string) {
 		}
 
 		if i < outputLen {
+			moduleOutput, err := termcolor.ParseColorString(moduleOutputs[i], textColors[:])
+			if err != nil {
+				return err
+			}
+
 			fmt.Println(
 				line,
 				strings.Repeat(" ", LOGOGAP),
-				termcolor.ParseColorString(moduleOutputs[i], textColors[:]),
+				moduleOutput,
 			)
 		} else {
 			fmt.Println(line)
 		}
 	}
+	return nil
 }
 
 func main() {
@@ -72,5 +81,8 @@ func main() {
 
 	userAtHost := modules.GetUserAtHost()
 
-	displayFetch(os.Args[1]+"Colors.json", []string{userAtHost, strings.Repeat("-", utf8.RuneCountInString(userAtHost)), modules.GetOS(), modules.GetKernel()})
+	err := displayFetch(os.Args[1]+"Colors.json", []string{userAtHost, strings.Repeat("-", utf8.RuneCountInString(userAtHost)), modules.GetOS(), modules.GetKernel()})
+	if err != nil {
+		log.Fatal("Error while displaying fetch: ", err)
+	}
 }

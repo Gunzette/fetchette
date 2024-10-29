@@ -13,7 +13,7 @@ This will (hopefully) be a neofetch-like program in go if it gets finished
 ### Todo further
 - [ ] Add more, good ASCII art
 - [ ] Use `flags` instead of `os.Args`
-- [ ] Stop with the `log.Fatal`s and actually create good error handling
+- [ ] Stop with the `log.Fatal`s and actually create good error handling: WIP (Done for termcolor, but not modules)
 - [X] Make OS info output colored
 ### Maybe Todo
 - [ ] Get OS info on systems other than linux

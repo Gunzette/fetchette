@@ -2,14 +2,13 @@ package termcolor
 
 import (
 	"encoding/json"
-	"log"
 	"os"
 	"path"
 	"strconv"
 	"strings"
 )
 
-func ParseColorString(str string, colList [][3]int) string {
+func ParseColorString(str string, colList [][3]int) (string, error) {
 	strParts := strings.Split(str, "{")
 
 	var res string
@@ -30,7 +29,7 @@ func ParseColorString(str string, colList [][3]int) string {
 		colIndex, err := strconv.Atoi(string(partRune[0:2]))
 
 		if err != nil {
-			log.Fatal(err)
+			return "", err
 		}
 
 		activeCol := colList[colIndex]
@@ -38,7 +37,7 @@ func ParseColorString(str string, colList [][3]int) string {
 		res += FgColor(part[3:], &activeCol)
 	}
 
-	return res
+	return res, nil
 }
 
 type JSONLogoStruct struct {
@@ -46,40 +45,46 @@ type JSONLogoStruct struct {
 	Colors [][3]int
 }
 
-func generateLogoDataFromJSONInfo(filename string) (string, [][3]int) {
+func generateLogoDataFromJSONInfo(filename string) (JSONLogoStruct, error) {
 	exPath, err := os.Executable()
 	if err != nil {
-		log.Fatal("Error while getting executable path: ", err)
+		return JSONLogoStruct{}, err
 	}
 
 	content, err := os.ReadFile(path.Dir(exPath) + "/ascii/" + filename)
 	if err != nil {
-		log.Fatal("Error while opening file: ", err)
+		return JSONLogoStruct{}, err
 	}
 
 	var data JSONLogoStruct
 	err = json.Unmarshal(content, &data)
 	if err != nil {
-		log.Fatal("Error while parsing JSON: ", err)
+		return JSONLogoStruct{}, err
 	}
 
-	return data.File, data.Colors
+	return data, nil
 }
 
-func GetColoredLogoString(filename string) string {
-	file, colors := generateLogoDataFromJSONInfo(filename)
+func GetColoredLogoString(filename string) (string, error) {
+	jsonData, err := generateLogoDataFromJSONInfo(filename)
+	if err != nil {
+		return "", err
+	}
 
 	exPath, err := os.Executable()
 	if err != nil {
-		log.Fatal("Error while getting executable path: ", err)
+		return "", err
 	}
 
-	logoString, err := os.ReadFile(path.Dir(exPath) + "/ascii/" + file)
+	logoString, err := os.ReadFile(path.Dir(exPath) + "/ascii/" + jsonData.File)
 	if err != nil {
-		log.Fatal("Error while opening file: ", err)
+		return "", err
 	}
 
-	coloredString := ParseColorString(string(logoString), colors)
+	coloredString, err := ParseColorString(string(logoString), jsonData.Colors)
+	if err != nil {
+		return "", err
+	}
 
-	return coloredString
+	return coloredString, nil
 }
