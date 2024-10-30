@@ -81,7 +81,7 @@ func main() {
 
 	userAtHost := modules.GetUserAtHost()
 
-	err := displayFetch(os.Args[1]+"Colors.json", []string{userAtHost, strings.Repeat("-", utf8.RuneCountInString(userAtHost)), modules.GetOS(), modules.GetKernel()})
+	err := displayFetch(os.Args[1]+"Colors.json", []string{userAtHost, strings.Repeat("-", utf8.RuneCountInString(userAtHost)), modules.GetOS(), modules.GetKernel(), modules.GetDesktop()})
 	if err != nil {
 		log.Fatal("Error while displaying fetch: ", err)
 	}
