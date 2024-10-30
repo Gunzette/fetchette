@@ -15,6 +15,7 @@ This will (hopefully) be a neofetch-like program in go if it gets finished
 - [ ] Use `flags` instead of `os.Args`
 - [ ] Stop with the `log.Fatal`s and actually create good error handling: WIP (Done for termcolor, but not modules)
 - [X] Make OS info output colored
+- [ ] Fix the amount of underlines being wrong due to ansii
 ### Maybe Todo
 - [ ] Get OS info on systems other than linux
 
