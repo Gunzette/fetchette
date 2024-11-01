@@ -21,3 +21,6 @@ This will (hopefully) be a neofetch-like program in go if it gets finished
 
 ## WARNING
 Will only work on windows if called from bash shell or similar, will fail in powershell 
+
+## Additional Information
+The arch and windows logo ascii art is taken from [fastfetch](https://github.com/fastfetch-cli/fastfetch) the LICENSE for them is in the ascii directory
