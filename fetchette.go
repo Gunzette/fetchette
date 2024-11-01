@@ -38,7 +38,7 @@ func getTextColors(filename string) [3][3]int {
 	return payload.TextColors
 }
 
-func displayFetch(colorsFile string, moduleOutputs []string) error {
+func displayFetch(colorsFile string, moduleOutputs []string, curOS modules.OS) error {
 	// Get logo string
 	logo, err := termcolor.GetColoredLogoString(colorsFile)
 	if err != nil {
@@ -49,8 +49,16 @@ func displayFetch(colorsFile string, moduleOutputs []string) error {
 
 	textColors := getTextColors(colorsFile)
 
+	var splitStr string
+	switch curOS {
+	case modules.Windows:
+		splitStr = "\r\n"
+	default:
+		splitStr = "\n"
+	}
+
 	// Add to each line of logo
-	for i, line := range strings.Split(logo, "\n") {
+	for i, line := range strings.Split(logo, splitStr) {
 		if line == "" {
 			continue
 		}
@@ -79,9 +87,19 @@ func main() {
 		log.Fatal("Not enough arguments")
 	}
 
-	userAtHost := modules.GetUserAtHost()
+	curOS := modules.GetOS()
+	modlist := [4]func(modules.OS) string{modules.GetUserAtHost, modules.GetOSString, modules.GetKernel, modules.GetDesktop}
+	strlist := make([]string, 0, 5)
+	for i, mod := range modlist {
+		strlist = append(strlist, mod(curOS))
 
-	err := displayFetch(os.Args[1]+"Colors.json", []string{userAtHost, strings.Repeat("-", utf8.RuneCountInString(userAtHost)), modules.GetOS(), modules.GetKernel(), modules.GetDesktop()})
+		// HEAVY TODO:
+		if i == 0 {
+			strlist = append(strlist, strings.Repeat("-", utf8.RuneCountInString(mod(curOS))))
+		}
+	}
+
+	err := displayFetch(os.Args[1]+"Colors.json", strlist, curOS)
 	if err != nil {
 		log.Fatal("Error while displaying fetch: ", err)
 	}

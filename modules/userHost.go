@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func getHostnameLinux() string {
+func getHostname() string {
 	out, err := exec.Command("hostname").Output()
 	if err != nil {
 		log.Fatal("Error while getting hostname: ", err)
@@ -15,7 +15,7 @@ func getHostnameLinux() string {
 	return res
 }
 
-func getUsernameLinux() string {
+func getUsername() string {
 	out, err := exec.Command("whoami").Output()
 	if err != nil {
 		log.Fatal("Error while getting username: ", err)
@@ -24,6 +24,9 @@ func getUsernameLinux() string {
 	return res
 }
 
-func GetUserAtHost() string {
-	return "{00}" + getUsernameLinux() + "{02}@{00}" + getHostnameLinux() + "{-1}"
+func GetUserAtHost(curOS OS) string {
+	switch curOS {
+	default:
+		return "{00}" + getUsername() + "{02}@{00}" + getHostname() + "{-1}"
+	}
 }
