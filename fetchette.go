@@ -88,8 +88,8 @@ func main() {
 	}
 
 	curOS := modules.GetOS()
-	modlist := [4]func(modules.OS) string{modules.GetUserAtHost, modules.GetOSString, modules.GetKernel, modules.GetDesktop}
-	strlist := make([]string, 0, 5)
+	modlist := [5]func(modules.OS) string{modules.GetUserAtHost, modules.GetOSString, modules.GetKernel, modules.GetDesktop, modules.GetCPU}
+	strlist := make([]string, 0, 6)
 	for i, mod := range modlist {
 		strlist = append(strlist, mod(curOS))
 
