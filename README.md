@@ -17,7 +17,6 @@ This will (hopefully) be a neofetch-like program in go if it gets finished
 - [ ] Stop with the `log.Fatal`s and actually create good error handling: WIP (Done for termcolor, but not modules)
 - [X] Make OS info output colored
 - [ ] Fix the amount of underlines being wrong due to ansii
-- [ ] add cpu module to windows
 
 ## WARNING
 Will only work on windows if called from bash shell or similar, will fail in powershell 
