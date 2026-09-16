@@ -1,6 +1,8 @@
 # Fetchette
 This will (hopefully) be a neofetch-like program in go if it gets finished
 
+Sadly abandoned rn
+
 ## Current state of the program:
 ![image](screenshots/earlyArch.png)
 ![image](screenshots/earlyWin.png)
